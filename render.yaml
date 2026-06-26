@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: ticket-system
+    env: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_PATH
+        value: /etc/secrets/ticket.db
+    disk:
+      name: ticket-db
+      mountPath: /etc/secrets
+      sizeGB: 1
