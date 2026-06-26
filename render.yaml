@@ -10,8 +10,4 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: DB_PATH
-        value: /etc/secrets/ticket.db
-    disk:
-      name: ticket-db
-      mountPath: /etc/secrets
-      sizeGB: 1
+        value: ./ticket.db
