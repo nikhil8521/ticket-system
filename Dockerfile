@@ -1,5 +1,5 @@
 # Build stage
-FROM golang:1.22-alpine AS builder
+FROM golang:1.25-alpine AS builder
 
 # Install build dependencies for SQLite
 RUN apk add --no-cache gcc musl-dev
@@ -22,7 +22,7 @@ RUN CGO_ENABLED=1 GOOS=linux go build -o main ./cmd/server/main.go
 # Final stage
 FROM alpine:latest
 
-# Install sqlite for runtime if needed
+# Install certificates
 RUN apk add --no-cache ca-certificates
 
 WORKDIR /app
@@ -30,7 +30,7 @@ WORKDIR /app
 # Copy the binary from builder
 COPY --from=builder /app/main .
 
-# Copy .env.example as .env if needed, or rely on environment variables
+# Copy environment example
 COPY .env.example .env
 
 # Expose port
